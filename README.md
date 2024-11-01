@@ -70,18 +70,23 @@ Here are some of the main API endpoints available:
 
 ## Folder Strucutre
 Here's an overview of the project structure: 
-roommate-matchmaking/
-├── src/
-│   ├── config/                 # Configuration files (e.g., environment variables)
-│   ├── controllers/            # Controllers for handling requests and responses
-│   ├── models/                 # Database models and schemas
-│   ├── services/               # Business logic and services for each feature
-│   ├── routes/                 # API route definitions
-│   ├── middlewares/            # Middleware functions for request handling
-│   ├── utils/                  # Utility functions and helper methods
-│   ├── app.js                  # Main application setup and middleware configuration
-│   ├── server.js               # Entry point to start the server
-└── .env                        # Environment variables
+## Project Structure
+
+| Directory / File        | Description                                       |
+|-------------------------|---------------------------------------------------|
+| `roommate-matchmaking/` | Main project folder                               |
+| ├── `src/`              | Source code directory                             |
+| │   ├── `config/`       | Configuration files (e.g., environment variables) |
+| │   ├── `controllers/`  | Controllers for handling requests and responses   |
+| │   ├── `models/`       | Database models and schemas                       |
+| │   ├── `services/`     | Business logic and services for each feature      |
+| │   ├── `routes/`       | API route definitions                             |
+| │   ├── `middlewares/`  | Middleware functions for request handling         |
+| │   ├── `utils/`        | Utility functions and helper methods              |
+| │   ├── `app.js`        | Main application setup and middleware configuration |
+| │   └── `server.js`     | Entry point to start the server                   |
+| └── `.env`              | Environment variables                             |
+
 
 
 ## License  
