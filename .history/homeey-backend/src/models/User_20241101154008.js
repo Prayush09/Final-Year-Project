@@ -1,0 +1,41 @@
+const pool = require('../config/db');
+const bcrypt = require('bcrypt');
+const zod = require('zod');
+
+
+const userSchema = zod.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invalid email format"),
+    password: z.string().min(6, "Password must be at least 6 characters long")
+});
+
+const User = {
+    try{}
+    async createUser(userDetails){
+
+        const validatedUserDetails = userSchema.parse(userDetails);
+        
+        const {name, password, email} = validatedUserDetails;
+
+        const result = await pool.query(
+            'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3) RETURNING *',
+            [name, email, password]
+        );
+        return result.rows[0];
+    },
+
+    async findByEmail(email){
+        const result = await pool.query(
+            'SEARCH * IN users WHERE email = $1',
+            [email]
+        );
+
+        return result.rows[0];
+    },
+
+    async comparePassword(inputPassword, storedPassword){
+        return await bcrypt.compare(inputPassword, storedPassword);
+    }
+}
+
+module.exports = User;
