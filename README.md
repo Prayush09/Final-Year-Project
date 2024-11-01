@@ -70,7 +70,6 @@ Here are some of the main API endpoints available:
 
 ## Folder Strucutre
 Here's an overview of the project structure: 
-
 roommate-matchmaking/
 ├── src/
 │   ├── config/                 # Configuration files (e.g., environment variables)
