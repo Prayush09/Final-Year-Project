@@ -33,6 +33,25 @@ const userController = {
                 message: error.message
             })
         }
+    },
+
+    async delete(req, res){
+        const user_id = req.user.id;
+
+        try{
+            const result = await userService.deleteUser(user_id);
+            
+            if(result.rows[0] === 0) throw new Error("Error occurred while deleting user!");
+
+            res.status(200).json({
+                result,
+                message: "User Deleted Successfully!"
+            });
+        }catch(error){
+            res.status(404).json({
+                message: "User not found and " + error.message
+            });
+        }
     }
 }
 

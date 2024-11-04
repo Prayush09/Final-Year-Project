@@ -44,6 +44,19 @@ const User = {
         return result.rows[0];
     },
 
+    async deleteUser(user_id){
+        try{
+            const result = await pool.query(
+                `DELETE FROM users WHERE user_id = $1 RETURNING *`,
+                [user_id]
+            );
+
+            return result.rows[0];
+        }catch(error){
+            throw new Error("Error occurred while deleting the user", error.message);
+        }
+    },
+
     async comparePassword(inputPassword, storedPassword){
         return await bcrypt.compare(inputPassword, storedPassword);
     }

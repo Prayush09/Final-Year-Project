@@ -1,6 +1,7 @@
 const express = require('express');
 const userRoutes = require('./routes/userRoutes');
 const profileRoutes = require('./routes/profileRoutes')
+const matchRoutes = require('./routes/matchRoutes');
 const cookieParser = require('cookie-parser');
 
 
@@ -14,5 +15,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/profiles', profileRoutes);
 
 //TODO: Start working on the match making dashboard, and how to implement the machine learning model to fetch from DB and create ratings for the user
+app.use('/api/match', matchRoutes);
+
 
 module.exports = app;

@@ -11,8 +11,6 @@ const userService = {
     async login(email, password){
         const user = await User.findByEmail(email);
 
-
-
         if(!user){
             throw new Error('User not found');
         }
@@ -27,6 +25,15 @@ const userService = {
         const token = jwtHelper.generateToken(user.user_id);
 
         return {user, token};
+    },
+
+    async deleteUser(user_id){
+        try{
+            const deleteUser = await User.deleteUser(user_id);
+            return deleteUser;
+        }catch(error){
+            throw new Error("Something went wrong deleting the user"+ error.message);
+        }
     }
 }
 
