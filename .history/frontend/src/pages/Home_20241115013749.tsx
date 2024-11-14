@@ -1,0 +1,26 @@
+import polygonSVG from '../assets/icons/polygon.svg';
+
+export default function Home() {
+  return (
+    <>
+      <div className="main-headings h-screen flex flex-col justify-center relative">
+        <main className="w-full text-center transform translate-y-20">
+          <h1 className="text-[80px] font-medium tracking-[1.60px] bg-gradient-to-b from-[#FF1BF7] to-[#00EFFF] bg-clip-text text-transparent">
+            A Fast Blockchain.
+          </h1>
+          <h1 className='text-[80px] font-medium '>
+            Personality Driven Match Making
+          </h1>
+          <p className="text-lg mt-4">
+            Finding the perfect roommate just got easier.<br/> Say goodbye to endless scrolling and awkward meetups—Homeey connects you with compatible roommates based on what truly matters.<br /> Your ideal home life is just a match away!
+          </p>
+        </main>
+      </div>
+      
+      {/* Adjusted position of the Polygon SVG */}
+      <div className="flex items-end justify-center absolute bottom-10 left-1/2 transform -translate-x-1/2">
+        <img src={polygonSVG} alt="Polygon Icon" />
+      </div>
+    </>
+  );
+}
