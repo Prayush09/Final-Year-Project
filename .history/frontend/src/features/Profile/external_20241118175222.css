@@ -1,0 +1,31 @@
+.profile-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .profile-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(168, 85, 247, 0.5));
+    border-radius: 16px; /* Match the card's border radius */
+    filter: blur(20px);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.7), 0 0 50px rgba(168, 85, 247, 0.7);
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      filter: blur(15px);
+      opacity: 0.8;
+    }
+    to {
+      filter: blur(25px);
+      opacity: 1;
+    }
+  }
+  
