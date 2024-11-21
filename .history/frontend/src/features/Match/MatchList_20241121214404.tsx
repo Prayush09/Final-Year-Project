@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import MatchItem from './MatchCard';
-import MatchFilters from './MatchFilters';
+import {MatchItem} from '../Match/MatchCard';
+import MatchFilters} from '../Message/MessageBubble';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
