@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
+import { useNavigate } from 'react-router-dom';
 
 interface User {
   id: string;
@@ -25,6 +25,7 @@ const api = axios.create({
   baseURL: 'http://localhost:3000/api/users',
   withCredentials: true
 });
+
 
 
 export const useAuth = create<AuthState>()(
@@ -88,8 +89,10 @@ export const useAuth = create<AuthState>()(
         }
       },
       logout: () => {
+        
         set({ user: null, token: null, name: null, user_id: null }); // Clear user, token, name, and user_id state
         localStorage.removeItem('auth-token'); // Remove the token from localStorage
+        navigate('/');
       },
     }),
     {

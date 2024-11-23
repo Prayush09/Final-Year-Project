@@ -12,18 +12,18 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173', // Match your frontend URL here
+    origin: 'http://localhost:5173', // Adjust the origin to match your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
+    credentials: true
   }
 });
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173', // Match your frontend URL here
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
+    origin: 'http://localhost:5173', // Adjust the origin to match your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
 }));
 
 // Store socket.io instance in app for use in routes

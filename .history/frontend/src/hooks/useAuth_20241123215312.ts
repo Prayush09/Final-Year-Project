@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
+import { useNavigate } from 'react-router-dom';
 
 interface User {
   id: string;
@@ -26,6 +26,7 @@ const api = axios.create({
   withCredentials: true
 });
 
+const navigate = useNavigate();
 
 export const useAuth = create<AuthState>()(
   

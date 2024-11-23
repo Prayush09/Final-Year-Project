@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
+import { useNavigate } from 'react-router-dom';
 
 interface User {
   id: string;
@@ -27,8 +27,8 @@ const api = axios.create({
 });
 
 
+
 export const useAuth = create<AuthState>()(
-  
   persist(
     (set) => ({
       user: null, // User state is initially null
@@ -37,7 +37,6 @@ export const useAuth = create<AuthState>()(
       user_id: null, // Initialize user_id as null
       setUser: (user, token, name, user_id) => set({ user, token, name, user_id }), // Set user, token, name, and user_id
       login: async (email, password) => {
-        
         localStorage.setItem("email", email)
         try {
           // Send login request with credentials
@@ -65,7 +64,6 @@ export const useAuth = create<AuthState>()(
         }
       },
       signup: async (email, password, name) => {
-        
         try {
           const user = { email, password, name };
           const response = await api.post('/register', user);
@@ -90,6 +88,7 @@ export const useAuth = create<AuthState>()(
       logout: () => {
         set({ user: null, token: null, name: null, user_id: null }); // Clear user, token, name, and user_id state
         localStorage.removeItem('auth-token'); // Remove the token from localStorage
+        navigate('/');
       },
     }),
     {

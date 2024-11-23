@@ -9,8 +9,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import Dashboard from '@/features/Dashboard/Dashboard';
 import ProfileForm from '@/features/Profile/EditProfile';
 import MessageInterface from '@/features/Message/MessageInterface';
-import { SocketProvider } from '@/Context/SocketContext';
-
+import { SocketProvider } from '@/context/SocketContext'; // Import the SocketProvider
 
 export default function AppRoutes() {
   return (
@@ -20,24 +19,20 @@ export default function AppRoutes() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/profile/edit" element={<ProfileForm />} />
-      <Route
-        path="/messages/:receiverId"
-        element={
-          <SocketProvider> {/* Wrap with SocketProvider */}
-            <MessageInterface />
-          </SocketProvider>
-        }
-      />
+      <Route path="/messages/:receiverId" element={<MessageInterface />} />
+      
+      {/* Wrap only the Dashboard component with SocketProvider */}
       <Route
         path="/dashboard"
         element={
-          <ProtectedRoute>
-            <SocketProvider>
-            <Dashboard />
-            </SocketProvider>
-          </ProtectedRoute>
+          <SocketProvider>
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          </SocketProvider>
         }
       />
+      
       <Route
         path="/matches"
         element={

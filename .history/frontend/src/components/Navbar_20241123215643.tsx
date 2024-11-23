@@ -14,7 +14,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
-  const {user, logout} = useAuth();
+  const {logout} = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const http = require('http');
-const { Server } = require('socket.io');
+const { Server, io } = require('socket.io');
 const userRoutes = require('./routes/userRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const matchRoutes = require('./routes/matchRoutes');
@@ -12,19 +12,27 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173', // Match your frontend URL here
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
+    credentials: true
   }
 });
+
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173', // Match your frontend URL here
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
 }));
+
+const socket = io('http://localhost:3000', {
+  withCredentials: true,
+  transports: ['websocket']
+})
+
+socket.on('connect')
 
 // Store socket.io instance in app for use in routes
 app.set('io', io);
@@ -33,28 +41,16 @@ app.set('io', io);
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
 
-  // User joins their own room based on userId
   socket.on('joinRoom', (userId) => {
     socket.join(userId);
     console.log(`User ${userId} joined room`);
   });
 
-  // When a message is sent, broadcast it to the recipient's room
-  socket.on('sendMessage', (message) => {
-    const { receiverId, content, senderId } = message;
-
-    // Emit the message to the recipient (room)
-    io.to(receiverId).emit('newMessage', message);
-    console.log(`Message from ${senderId} to ${receiverId}: ${content}`);
-  });
-
-  // Handle disconnection
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
   });
 });
 
-// Your existing routes
 app.use('/api/users', userRoutes);
 app.use('/api/profiles', profileRoutes);
 app.use('/api/match', matchRoutes);

@@ -14,13 +14,13 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
-  const {user, logout} = useAuth();
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
 
+  
   const handleLogout = () => {
     logout();
-    navigate('/'); 
+    navigate('/'); // Perform navigation here
   };
 
   const NavLinks = ({ isMobile = false }) => (
@@ -127,7 +127,7 @@ export default function Navbar() {
     <div className={`flex items-center ${isMobile ? 'flex-col space-y-2' : 'space-x-4'}`}>
       <ModeToggle />
       {user ? (
-        <Button variant="destructive" onClick={handleLogout}>
+        <Button variant="destructive" onClick={logout}>
           <span className="text-lg">Logout</span>
         </Button>
       ) : (

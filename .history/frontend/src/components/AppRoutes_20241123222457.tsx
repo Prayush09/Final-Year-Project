@@ -9,9 +9,8 @@ import { ProtectedRoute } from './ProtectedRoute';
 import Dashboard from '@/features/Dashboard/Dashboard';
 import ProfileForm from '@/features/Profile/EditProfile';
 import MessageInterface from '@/features/Message/MessageInterface';
-import { SocketProvider } from '@/Context/SocketContext';
-
-
+import { SocketProvider } from '@/contexts/SocketContext'; 
+//TODO: DO the Login and Sign-up pages and connect with backend
 export default function AppRoutes() {
   return (
     <Routes>
@@ -20,22 +19,23 @@ export default function AppRoutes() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/profile/edit" element={<ProfileForm />} />
+      <Route path="/messages/:receiverId" element={<MessageInterface />} />
       <Route
-        path="/messages/:receiverId"
+        path="/profile"
         element={
-          <SocketProvider> {/* Wrap with SocketProvider */}
-            <MessageInterface />
-          </SocketProvider>
+          <ProtectedRoute>
+            <Profile />
+            
+          </ProtectedRoute>
         }
       />
       <Route
-        path="/dashboard"
+        path = '/dashboard'
         element={
-          <ProtectedRoute>
-            <SocketProvider>
-            <Dashboard />
-            </SocketProvider>
-          </ProtectedRoute>
+            <ProtectedRoute>
+                <Dashboard />
+                
+            </ProtectedRoute>
         }
       />
       <Route

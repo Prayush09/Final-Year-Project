@@ -9,8 +9,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import Dashboard from '@/features/Dashboard/Dashboard';
 import ProfileForm from '@/features/Profile/EditProfile';
 import MessageInterface from '@/features/Message/MessageInterface';
-import { SocketProvider } from '@/Context/SocketContext';
-
+import { SocketProvider } from '@/Context/SocketContext';  // import the SocketProvider
 
 export default function AppRoutes() {
   return (
@@ -32,9 +31,8 @@ export default function AppRoutes() {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <SocketProvider>
+            <SocketProvider></SocketProvider>
             <Dashboard />
-            </SocketProvider>
           </ProtectedRoute>
         }
       />
