@@ -2,48 +2,51 @@ const pool = require('../config/db');
 
 const Match = {
     
-    // Create a new match
     async createMatch(user_id, matched_user_id, score, status) {
-        // Check if the match already exists
-        const existingMatch = await pool.query(
-            `SELECT * FROM matches 
-             WHERE user_id = $1 AND matched_user_id = $2`,
-            [user_id, matched_user_id]
-        );
+        // Start a transaction to ensure atomicity
+        const client = await pool.connect();
     
-        if (existingMatch.rows.length > 0) {
-            throw new Error("Match already exists.");
+        try {
+            await client.query('BEGIN');
+    
+            // Check if the match already exists in either direction
+            const existingMatch = await client.query(
+                `SELECT * FROM matches 
+                 WHERE (user_id = $1 AND matched_user_id = $2)
+                    OR (user_id = $2 AND matched_user_id = $1)`,
+                [user_id, matched_user_id]
+            );
+    
+            if (existingMatch.rows.length > 0) {
+                throw new Error("Match already exists.");
+            }
+    
+            // Insert the match from user_id to matched_user_id
+            await client.query(
+                `INSERT INTO matches (user_id, matched_user_id, match_score, status, matched_at)
+                 VALUES ($1, $2, $3, $4, NOW())`,
+                [user_id, matched_user_id, score, status]
+            );
+    
+            // Insert the reciprocal match from matched_user_id to user_id
+            await client.query(
+                `INSERT INTO matches (user_id, matched_user_id, match_score, status, matched_at)
+                 VALUES ($1, $2, $3, $4, NOW())`,
+                [matched_user_id, user_id, score, status]
+            );
+    
+            // Commit the transaction
+            await client.query('COMMIT');
+    
+            return { success: true, message: "Match created successfully." };
+    
+        } catch (error) {
+            // Rollback the transaction in case of any error
+            await client.query('ROLLBACK');
+            throw error;
+        } finally {
+            client.release();
         }
-    
-        const result = await pool.query(
-            `INSERT INTO matches (user_id, matched_user_id, match_score, status, matched_at)
-             VALUES ($1, $2, $3, $4, NOW())
-             RETURNING *`,
-            [
-                user_id,
-                matched_user_id,
-                score,
-                status
-            ]
-        );
-
-        await pool.query(
-            `INSERT INTO matches (user_id, matched_user_id, match_score, status, matched_at)
-            VALUES ($1, $2, $3, $4, NOW())
-            RETURNING *`,
-            [
-                matched_user_id,
-                user_id,
-                score, 
-                status
-            ]
-        )
-    
-        if (!result || !result.rows || result.rows.length === 0) {
-            throw new Error("Failed to create match.");
-        }
-    
-        return result.rows[0];
     },
 
     // Get all matches for a user

@@ -144,7 +144,7 @@ export default function Dashboard() {
       await axios.put(
         `http://localhost:3000/api/match/acceptMatch`,
         {
-          user_id: user_id,
+          user_id,
           matched_user_id: matchedUserId,
         },
         { withCredentials: true }

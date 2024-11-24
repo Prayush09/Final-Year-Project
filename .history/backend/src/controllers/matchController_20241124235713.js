@@ -62,8 +62,8 @@ const matchController = {
     },
 
     async acceptMatch(req, res) {
-        const user_id = req.body.user_id; // Extracting user_id from query params
-        const matched_user_id = req.body.matched_user_id; // Expecting matched_user_id in the request body
+        const user_id = req.query.user_id; // Extracting user_id from query params
+        const matched_user_id = req.query.matched_user_id; // Expecting matched_user_id in the request body
 
         try {
             const updateMatch = await matchService.acceptMatch(user_id, matched_user_id);
@@ -100,7 +100,7 @@ const matchController = {
     },
 
     async updateMatches(req, res) {
-        const user_id = req.query.user_id; // Extracting user_id from query params
+        const user_id = req.b.user_id; // Extracting user_id from query params
 
         try {
             const updateMatch = await matchService.updateMatches(user_id);

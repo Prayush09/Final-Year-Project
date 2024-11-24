@@ -136,13 +136,16 @@
     const filteredMatches = matches.filter((match) => {
       const profile = profiles.get(match.matched_user_id);
       if (!profile) return false;
-    
-      const nameIncludesQuery = profile.name?.toLowerCase().includes(searchQuery.toLowerCase());
-      const locationIncludesQuery = profile.location_preferences?.toLowerCase().includes(searchQuery.toLowerCase());
-    
-      return nameIncludesQuery || locationIncludesQuery;
+
+      const matchesSearchQuery =
+        profile.name.toLowerCase()?.includes(searchQuery.toLowerCase()) ||
+        profile.location_preferences
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
+
+      return matchesSearchQuery;
     });
-    
+
     if (loading) {
       return (
         <div className="flex items-center justify-center min-h-screen">
@@ -210,5 +213,3 @@
       </div>
     );
   }
-
-  

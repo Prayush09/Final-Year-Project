@@ -141,11 +141,12 @@ export default function Dashboard() {
 
   const handleAccept = async (matchedUserId: string) => {
     try {
+      console.log(user_id, matchedUserId);
       await axios.put(
         `http://localhost:3000/api/match/acceptMatch`,
         {
-          user_id: user_id,
-          matched_user_id: matchedUserId,
+          user_id: matchedUserId,
+          matched_user_id: user_id
         },
         { withCredentials: true }
       );

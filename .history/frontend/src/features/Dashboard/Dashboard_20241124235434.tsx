@@ -58,7 +58,7 @@ export default function Dashboard() {
   const user_id = localStorage.getItem('user_id') || '';
 
   useEffect(() => {
-    if (user_id) {  
+    if (user_id) {
       fetchMatches();
       fetchUnreadMessages();
 
@@ -144,8 +144,8 @@ export default function Dashboard() {
       await axios.put(
         `http://localhost:3000/api/match/acceptMatch`,
         {
-          user_id: user_id,
-          matched_user_id: matchedUserId,
+          user_id,
+          matched_user_id: matchedUserId
         },
         { withCredentials: true }
       );

@@ -70,7 +70,7 @@ const matchService = {
             };
 
             //sending data to Flask API for score prediction
-            const response = await fetch("https://d46a-34-16-200-64.ngrok-free.app/predict", {
+            const response = await fetch("https://df46-34-16-200-64.ngrok-free.app/predict", {
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"

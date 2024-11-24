@@ -27,17 +27,11 @@ const Match = {
             ]
         );
 
-        await pool.query(
+        await client.query(
             `INSERT INTO matches (user_id, matched_user_id, match_score, status, matched_at)
-            VALUES ($1, $2, $3, $4, NOW())
-            RETURNING *`,
-            [
-                matched_user_id,
-                user_id,
-                score, 
-                status
-            ]
-        )
+             VALUES ($1, $2, $3, $4, NOW())`,
+            [matched_user_id, user_id, score, status]
+        );
     
         if (!result || !result.rows || result.rows.length === 0) {
             throw new Error("Failed to create match.");
