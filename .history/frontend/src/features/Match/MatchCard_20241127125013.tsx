@@ -39,7 +39,7 @@ export function MatchCard({
   const getAnimatedAvatar = (gender: string) => {
     return gender.toLowerCase() === 'female'
       ? 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop'
-      : 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&h=600&fit=crop';
+      : 'https://www.google.com/imgres?q=male%20profile&imgurl=https%3A%2F%2Fimages.vexels.com%2Fcontent%2F140800%2Fpreview%2Fman-profile-avatar-cb929b.png&imgrefurl=https%3A%2F%2Fwww.vexels.com%2Fpng-svg%2Fpreview%2F140800%2Fman-profile-avatar&docid=8sNhzdkjf_E03M&tbnid=1956-tO2Yx4cjM&vet=12ahUKEwjJ1bzW_PuJAxVI1DgGHUZ8JTI4ChAzegQIcxAA..i&w=512&h=512&hcb=2&ved=2ahUKEwjJ1bzW_PuJAxVI1DgGHUZ8JTI4ChAzegQIcxAA';
   };
 
   return (

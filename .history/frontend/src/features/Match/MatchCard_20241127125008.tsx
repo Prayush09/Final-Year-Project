@@ -39,7 +39,7 @@ export function MatchCard({
   const getAnimatedAvatar = (gender: string) => {
     return gender.toLowerCase() === 'female'
       ? 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop'
-      : 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&h=600&fit=crop';
+      : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzyAeIoFN1de-QOCw0k9KPWHwjaEg2ivDO6A&';
   };
 
   return (

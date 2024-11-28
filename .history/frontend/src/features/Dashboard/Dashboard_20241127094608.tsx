@@ -10,7 +10,7 @@ import { Heart, Users, Sparkles, Bell } from 'lucide-react';
 import { MatchCard } from '../Match/MatchCard';
 import { useSocket } from '../../Context/SocketContext';
 import { Banner } from '../../components/ui/banner';
-import { useProfileCheck } from '../../hooks/useProfileCheck';
+import { useProfileCheck } from '@/hooks/useProfileCheck';
 
 interface Match {
   user_id: string;

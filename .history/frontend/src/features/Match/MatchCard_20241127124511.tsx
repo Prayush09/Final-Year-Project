@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CircleCheckBig, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { CircleCheck, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { MessageButton } from '../Message/MessageButton';
 
 interface Profile {
@@ -39,7 +39,7 @@ export function MatchCard({
   const getAnimatedAvatar = (gender: string) => {
     return gender.toLowerCase() === 'female'
       ? 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop'
-      : 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&h=600&fit=crop';
+      : 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop';
   };
 
   return (

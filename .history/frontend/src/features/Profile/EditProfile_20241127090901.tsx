@@ -86,7 +86,6 @@ export default function EditProfile() {
   const navigate = useNavigate();
   const [isProfileComplete, setProfileComplete] = useState(false);
   const [loading, setLoading] = useState(false);
-  const user_id = localStorage.getItem('user_id');
 
   useEffect(() => {
     const email = localStorage.getItem('email');
@@ -101,7 +100,7 @@ export default function EditProfile() {
         setProfileComplete(userResponse.data.profile_completed);
         
         if (userResponse.data.profile_completed) {
-          const profileResponse = await axios.get(`http://localhost:3000/api/profiles/?user_id=${user_id}`);
+          const profileResponse = await axios.get(`http://localhost:3000/api/profiles/?userId=${userResponse.data.user_id}`);
           form.reset(profileResponse.data);
         }
       } catch (error) {

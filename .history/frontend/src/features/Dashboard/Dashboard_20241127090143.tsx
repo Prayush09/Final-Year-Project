@@ -9,8 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Heart, Users, Sparkles, Bell } from 'lucide-react';
 import { MatchCard } from '../Match/MatchCard';
 import { useSocket } from '../../Context/SocketContext';
-import { Banner } from '../../components/ui/banner';
-import { useProfileCheck } from '../../hooks/useProfileCheck';
+
 
 interface Match {
   user_id: string;
@@ -57,9 +56,6 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [unreadMessages, setUnreadMessages] = useState(0);
   const user_id = localStorage.getItem('user_id') || '';
-  const email = localStorage.getItem('email');
-  
-  const { isProfileComplete, isLoading: profileCheckLoading } = useProfileCheck(email);
 
   useEffect(() => {
     if (user_id) {  
@@ -180,26 +176,6 @@ export default function Dashboard() {
       console.error('Error rejecting match:', error);
     }
   };
-
-  if (profileCheckLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500">Loading...</p>
-      </div>
-    );
-  }
-
-  if (!isProfileComplete) {
-    return (
-      <div className="min-h-screen p-6">
-        <Banner
-          message="Please complete your profile to start matching with others."
-          actionLabel="Complete Profile"
-          onAction={() => navigate('/profile/edit')}
-        />
-      </div>
-    );
-  }
 
   return (
     <motion.div

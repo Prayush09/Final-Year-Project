@@ -33,6 +33,7 @@ import {
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 
+
 const indianCities = [
   "Delhi",
   "Mumbai",
@@ -65,6 +66,7 @@ const profileSchema = z.object({
   location_preferences: z.enum(indianCities),
 });
 
+
 type ProfileFormValues = z.infer<typeof profileSchema>;
 
 export default function EditProfile() {
@@ -86,7 +88,6 @@ export default function EditProfile() {
   const navigate = useNavigate();
   const [isProfileComplete, setProfileComplete] = useState(false);
   const [loading, setLoading] = useState(false);
-  const user_id = localStorage.getItem('user_id');
 
   useEffect(() => {
     const email = localStorage.getItem('email');
@@ -95,22 +96,20 @@ export default function EditProfile() {
       return;
     }
 
-    const fetchUserProfile = async () => {
-      try {
-        const userResponse = await axios.get(`http://localhost:3000/api/users/userId?email=${email}`);
-        setProfileComplete(userResponse.data.profile_completed);
-        
-        if (userResponse.data.profile_completed) {
-          const profileResponse = await axios.get(`http://localhost:3000/api/profiles/?user_id=${user_id}`);
-          form.reset(profileResponse.data);
+    axios
+      .get(`http://localhost:3000/api/users/userId?email=${email}`)
+      .then((response) => {
+        setProfileComplete(response.data.profile_completed);
+        console.log(response.data.profile_completed);
+        if (response.data.profile_completed) {
+          //fetch userId profile data from this endpoint: http://localhost:3000/api/profile
+          form.reset(response.data.profile);
         }
-      } catch (error) {
-        console.error('Error fetching profile data', error);
+      })
+      .catch((error) => {
+        console.error('Error fetching profile status', error);
         toast.error('Failed to load profile data');
-      }
-    };
-
-    fetchUserProfile();
+      });
   }, [form]);
 
   async function onSubmit(data: ProfileFormValues) {
