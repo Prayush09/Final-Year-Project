@@ -8,10 +8,12 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
+    "noEmit": false,
+    "emitDeclarationOnly": false,
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    "outDir": "./dist",
     "jsx": "react-jsx",
 
     /* Linting */
